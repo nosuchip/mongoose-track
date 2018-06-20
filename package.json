@@ -1,6 +1,6 @@
 {
   "name": "mongoose-track",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Mongoose Track allows you to track and manage document changes (deeply) with author references and simple helper methods/statics.",
   "main": "index.js",
   "scripts": {
