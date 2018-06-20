@@ -68,9 +68,11 @@ mongooseTrack.historyEvent = function(schema, options, _document, document) {
       let schemaProp = _get(schema.tree, (diff.path || []).join('.')) || {};
       if (schemaProp.historyIgnore) return false;
 
-      delete diff.rhs._id;
-      delete diff.rhs.historyAuthor;
-      delete diff.rhs.history;
+      if (diff.rhs) {
+        delete diff.rhs._id;
+        delete diff.rhs.historyAuthor;
+        delete diff.rhs.history;
+      }
 
       self.changes.push({
         path: diff.path,
