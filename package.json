@@ -1,0 +1,36 @@
+{
+  "name": "mongoose-track",
+  "version": "1.0.0",
+  "description": "Mongoose Track allows you to track and manage document changes (deeply) with author references and simple helper methods/statics.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "mongoose",
+    "track",
+    "changes",
+    "history",
+    "diff",
+    "document",
+    "audit"
+  ],
+  "author": "",
+  "homepage": "https://github.com/nosuchip/mongoose-track#readme",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nosuchip/mongoose-track.git"
+  },
+  "dependencies": {
+    "deep-diff": "^1.0.1",
+    "deepmerge": "^2.1.1",
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.1.6"
+  }
+}
