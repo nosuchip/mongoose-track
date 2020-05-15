@@ -27,18 +27,18 @@ fruitSchema.plugin(mongooseTrack.plugin, { ... })
 let fruitModel = mongoose.model('fruitModel', fruitSchema)
 
 ```
-All changes to `fruitModel` documents will now be written to the document at `document.history`.
+All changes to `fruitModel` documents will now be written to the document under `document.history`.
 
 ## Options
 
-You can set options globaly or per schema by passing a second argument to the plugin, schema specific options override global options.
+You can set options globaly or per schema by passing a second argument to the plugin. Schema-specific options override global options.
 
-To set **Global Options**:
+To set **global options**:
 ```js
 const mongooseTrack = require('mongoose-track')
 mongooseTrack.options = { /*options*/ }
 ```
-To set **Schema Specific Options**:
+To set **schema-specific options**:
 ```js
 const mongoose = require('mongoose')
 const mongooseTrack = require('mongoose-track')
@@ -47,7 +47,7 @@ mySchema.plugin(mongooseTrack.plugin, { /*options*/ }
 ```
 - `historyIgnore` indicates whether field history should be tracked
   - `true` Changes to this property will not be added to the `historyEvent`
-  - `false` Changes to this property will be added to the `historyEvent`
+  - `false` Changes to this property *will* be added to the `historyEvent`
     ```js
     let fruitSchema = new mongoose.Schema({
         name: { type: String },
@@ -59,13 +59,13 @@ mySchema.plugin(mongooseTrack.plugin, { /*options*/ }
 - `options.track.E`, type: `Boolean`, default: `true`. Indicates whether history for **edited** (i.e. previously defined and changed) created fields should be tracked.
 - `options.track.D`, type: `Boolean`, default: `true`. Indicates whether history for **deleted** (i.e. previously defined and removed) fields should be tracked.
 - `options.track.A`, type: `Boolean`, default: `true`. Indicates whether history for **array** fields should be tracked.
-- `options.author.enabled`, type: `Boolean`, default: `false`. Indicated whether `document.historyAuthor` will be addred to history.
+- `options.author.enabled`, type: `Boolean`, default: `false`. Indicated whether `document.historyAuthor` will be added to history.
 - `options.author.type`, type: `Mixed`, default: `mongoose.Schema.Types.String`. This should be set to the `_id` type of the author document, typically you'll use `mongoose.Schema.Types.ObjectId`.
 - `options.author.ref`, type: `String`, default: `undefined`. This should be set to the **model name** of the author document, such as `"userModel"`
 
 ## History Event `historyEvent`
 
-A `historyEvent` is created when you save a document, if there are (tracked) property changes to that document they will be appended to the `historyEvent` and the `historyEvent` will be placed at the top of the `document.history` Array, otherwise no `historyEvent` will be saved.
+A `historyEvent` is created when you save a document, if there are (tracked) property changes to that document, they will be appended to the `historyEvent` and the `historyEvent` will be placed at the top of the `document.history` array. Otherwise, no `historyEvent` will be saved.
 
 ```js
 history: [{
@@ -107,19 +107,19 @@ A `historyChangeEvent` is a (singular) change to a document property that occurr
 ## Methods
 
 - `method.historyRevise(query, deepRevision)`, query: `Mixed`, deepRevision: `Boolean`.
-  - If the `query` value is an `ObjectId` value from a `historyEvent` or `historyChangeEvent` this will return a document with values matching the `historyEvent._id || historyChangeEvent._id`
+  - If the `query` value is an `ObjectId` value from a `historyEvent` or `historyChangeEvent`, this will return a document with values matching the `historyEvent._id || historyChangeEvent._id`
   - If the `query` value is a `Date` value it will find the latest `historyEvent` that occurred prior to the `Date` value.
-  - If `deepRevision` is set to `true` a deep revision will occur, this will revise the document to **exactly** how it was when the matching `historyEvent` was created by recursivly setting all prior values from oldest to latest, stopping at the matching **`storyEvent`.
-  - If `deepRevision` is set to `false` only the changes within the matching `historyEvent` or `historyChangeEvent` will be revised.
+  - If `deepRevision` is set to `true`, a deep revision will occur. This will revise the document to **exactly** how it was when the matching `historyEvent` was created by setting all prior values from oldest to latest, stopping at the matching **`storyEvent`.
+  - If `deepRevision` is set to `false`, only the changes within the matching `historyEvent` or `historyChangeEvent` will be revised.
   - Currently `deepRevision` does not support a `query` value of a `historyChangeEvent` `ObjectId`.
 
 - `method.historyForget(historyEventId, single)`, query: `ObjectId`, deepRevision: `Boolean`.
 This method accepts an `_id` from a `historyEvent` and will remove all `document.history` prior to and including the matching `historyEvent`.
-If `single` is set to `true` only the matching `historyEvent` will be removed.
+If `single` is set to `true`, only the matching `historyEvent` will be removed.
 
 ## Statics
 
-- `static.historyind(query)`, query: `mongoose.Query`. This static allows you to pass additional query operators to `static.find()`.
+- `static.historyFind(query)`, query: `mongoose.Query`. This static allows you to pass additional query operators to `static.find()`.
 Passing `$revision` to the query with a `Date` value will return matching documents revised to that date, uses `method._revise()`.
 Additionally you can define `$deepRevision` to return documents with a deep revision, same as `method._revise()`.
 
@@ -174,7 +174,7 @@ let fruitModel = mongoose.model('fruitModel', fruitSchema)
 ```
 
 ### Option Example
-_The example below does not track `N` events._
+_The example below does not track `N` events (newly created fields)._
 
 ```js
 const mongoose = require('mongoose')
